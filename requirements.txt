@@ -1,6 +1,6 @@
+pydrive
+streamlit
 pandas
 numpy
-seaborn
-matplotlib
 plotly
-pydrive
+scikit-learn
