@@ -8,7 +8,7 @@ from sklearn.ensemble import RandomForestClassifier
 # ---- Chargement des données ----
 @st.cache_data
 def load_data():
-    df = pd.read_csv("Data.csv")  # Remplace avec le bon chemin
+    df = pd.read_csv("Data.csv", sep=";", encoding="utf-8", engine="python", on_bad_lines="skip")
     return df
 
 df = load_data()
