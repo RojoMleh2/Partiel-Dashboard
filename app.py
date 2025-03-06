@@ -90,6 +90,18 @@ with tab5:  # Prédictions & Machine Learning
     X = df[features]
     y = df["Attrition"]
     model = RandomForestClassifier()
+    # Remplacer les valeurs texte "oui"/"non" par 1/0 (exemple : 'Carte de crédit' et 'Membre actif')
+    df["Carte de crédit"] = df["Carte de crédit"].map({"oui": 1, "non": 0})
+    df["Membre actif"] = df["Membre actif"].map({"oui": 1, "non": 0})
+    
+    # Vérifier que toutes les colonnes utilisées sont bien numériques
+    X = df[["Score pour credit", "Age", "Ancienneté", "Solde", "Produit bancaire", "Salaire"]].copy()
+    X = X.apply(pd.to_numeric, errors="coerce")  # Convertir en nombres
+    X = X.fillna(0)  # Remplacer les NaN par 0
+    
+    # Vérifier que y est bien binaire
+    y = df["Attrition"].astype(int)
+
     model.fit(X, y)
 
     importance = pd.DataFrame({"Feature": features, "Importance": model.feature_importances_}).sort_values(by="Importance", ascending=False)
